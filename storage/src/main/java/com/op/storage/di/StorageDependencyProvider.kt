@@ -3,6 +3,7 @@ package com.op.storage.di
 import android.content.Context
 import androidx.room.Room
 import com.op.storage.data.database.MovieDatabase
+import com.op.storage.data.database.dao.PopularMovieDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,5 +26,11 @@ object StorageDependencyProvider {
     )
         .fallbackToDestructiveMigration()
         .build()
+
+    @Singleton
+    @Provides
+    fun providePopularMovieDao(
+        database: MovieDatabase
+    ): PopularMovieDao = database.popularMovieDao()
 
 }

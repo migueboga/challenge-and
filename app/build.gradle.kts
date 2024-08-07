@@ -68,6 +68,7 @@ dependencies {
 
     // Modules
     implementation(project(":moviedb"))
+    implementation(project(":storage"))
 
 
 }
