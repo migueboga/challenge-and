@@ -1,5 +1,7 @@
 package com.op.movies.presentation.profile
 
+import com.op.movies.presentation.base.BaseUiState
+
 data class ProfileUiState(
     val name: String = "",
     val profilePath: String = "",
