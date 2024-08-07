@@ -9,4 +9,7 @@
     <string name="profile_popularity">Popularity</string>
     <string name="profile_id">ID</string>
     <string name="profile_image">Profile image</string>
+    <string name="home_popular">Popular</string>
+    <string name="home_top_rated">Top Rated</string>
+    <string name="recommendations">Recommendations</string>
 </resources>
