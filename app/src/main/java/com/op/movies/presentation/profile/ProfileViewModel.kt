@@ -1,12 +1,10 @@
 package com.op.movies.presentation.profile
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.op.moviedb.domain.usecase.GetPopularUseCase
 import com.op.movies.R
+import com.op.movies.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
@@ -54,15 +52,3 @@ class ProfileViewModel @Inject constructor(
 
 }
 
-abstract class BaseViewModel<I : BaseUiState>(value: I): ViewModel() {
-
-    protected val _uiState = MutableLiveData(value)
-    val uiState: LiveData<I> get() = _uiState
-
-}
-
-abstract class BaseUiState {
-    abstract val isLoading: Boolean
-    abstract val error: Int?
-    abstract val message: Int?
-}
