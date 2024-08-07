@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.dagger.hilt)
+    alias(libs.plugins.kotlin.kapt)
 }
 
 android {
@@ -36,6 +38,9 @@ android {
     buildFeatures {
         viewBinding = true
     }
+    kapt {
+        correctErrorTypes = true
+    }
 }
 
 dependencies {
@@ -56,7 +61,13 @@ dependencies {
 
     // Hilt
     implementation(libs.hilt)
-    annotationProcessor(libs.hilt.compiler)
+    kapt(libs.hilt.compiler)
+
+    // Glide
+    implementation(libs.bumptech.glide)
+
+    // Modules
+    implementation(project(":moviedb"))
 
 
 }

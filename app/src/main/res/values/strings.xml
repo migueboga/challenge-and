@@ -4,4 +4,9 @@
     <string name="title_gallery">Gallery</string>
     <string name="title_profile">Profile</string>
     <string name="title_map">Map</string>
+    <string name="general_error">Error found, plase try later</string>
+    <string name="profile_name">Name</string>
+    <string name="profile_popularity">Popularity</string>
+    <string name="profile_id">ID</string>
+    <string name="profile_image">Profile image</string>
 </resources>
