@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.dagger.hilt)
+    alias(libs.plugins.kotlin.kapt)
 }
 
 android {
@@ -23,6 +25,7 @@ android {
             )
             buildConfigField("String", "MOVIE_DB_BASE_URL", "\"https://api.themoviedb.org\"")
             buildConfigField("String", "MOVIE_DB_API_KEY", "\"${property("MOVIE_DB_API_KEY")}\"")
+            buildConfigField("String", "MOVIE_DB_IMAGE_BASE_URL", "\"https://image.tmdb.org/t/p/w500\"")
         }
         debug {
             isMinifyEnabled = false
@@ -32,6 +35,7 @@ android {
             )
             buildConfigField("String", "MOVIE_DB_BASE_URL", "\"https://api.themoviedb.org\"")
             buildConfigField("String", "MOVIE_DB_API_KEY", "\"${property("MOVIE_DB_API_KEY")}\"")
+            buildConfigField("String", "MOVIE_DB_IMAGE_BASE_URL", "\"https://image.tmdb.org/t/p/w500\"")
         }
     }
     compileOptions {
@@ -40,6 +44,9 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+    kapt {
+        correctErrorTypes = true
     }
     buildFeatures.buildConfig = true
 }
@@ -55,7 +62,7 @@ dependencies {
 
     // Hilt
     implementation(libs.hilt)
-    annotationProcessor(libs.hilt.compiler)
+    kapt(libs.hilt.compiler)
 
     // Retrofit
     implementation(libs.squareup.retrofit2)
