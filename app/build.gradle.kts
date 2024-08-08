@@ -56,7 +56,10 @@ dependencies {
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.legacy.support.v4)
     implementation(libs.androidx.fragment.ktx)
+    implementation(libs.play.services.location)
     testImplementation(libs.junit)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.androidx.core.testing)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
@@ -69,6 +72,12 @@ dependencies {
 
     // Firebase
     implementation(libs.firebase.storage.ktx)
+
+    // Google Maps
+    implementation(libs.play.services.maps)
+
+    // Mockk
+    testImplementation(libs.mockk)
 
     // Modules
     implementation(project(":moviedb"))
