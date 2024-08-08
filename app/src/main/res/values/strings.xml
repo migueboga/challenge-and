@@ -1,6 +1,29 @@
 <resources>
     <string name="app_name">Movies</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_gallery">Gallery</string>
+    <string name="title_profile">Profile</string>
+    <string name="title_map">Map</string>
+    <string name="general_error">Error found, plase try later</string>
+    <string name="profile_name">Name</string>
+    <string name="profile_popularity">Popularity</string>
+    <string name="profile_id">ID</string>
+    <string name="profile_image">Profile image</string>
+    <string name="home_popular">Popular</string>
+    <string name="home_top_rated">Top Rated</string>
+    <string name="recommendations">Recommendations</string>
+    <string name="gallery">Gallery</string>
+    <string name="gallery_add_images">Add images</string>
+    <string name="activity_cannot_be_null">Activity cannot be null</string>
+    <string name="err_get_image">Error downloading your images, try later</string>
+    <string name="err_generic_title">Ups!</string>
+    <string name="err_upload_image">Error found uploading your image, try later</string>
+    <string name="err_generic_positive_button_title">Ok</string>
+    <string name="err_get_popular_movies">Error found when get popular movies, try later</string>
+    <string name="err_get_top_rated">Error found when get top rated movies, try later</string>
+    <string name="err_get_popular_person">Error found when get the most popular person, try later</string>
+    <string name="err_permission_title">Permission not granted</string>
+    <string name="err_require_location_permission">Its required granted location permission to see your locations in the map</string>
+    <string name="cancel">Cancel</string>
+    <string name="go_settings">Settings</string>
 </resources>
