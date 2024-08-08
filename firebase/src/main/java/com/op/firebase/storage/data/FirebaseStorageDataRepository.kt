@@ -2,8 +2,9 @@ package com.op.firebase.storage.data
 
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storageMetadata
+import com.op.firebase.storage.di.IODispatcher
 import com.op.firebase.storage.domain.repository.FirebaseStorageRepository
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
@@ -15,14 +16,15 @@ import java.io.FileInputStream
 import javax.inject.Inject
 
 class FirebaseStorageDataRepository @Inject constructor(
-    private val storageReference: StorageReference
+    private val storageReference: StorageReference,
+    @IODispatcher private val dispatcher: CoroutineDispatcher
 ): FirebaseStorageRepository {
 
     override fun downloadAllPhotos(): Flow<List<StorageReference>> = flow {
         val storageRef = storageReference.child("/")
         val fileRefs = storageRef.listAll().await().items
         emit(fileRefs)
-    }.flowOn(Dispatchers.IO)
+    }.flowOn(dispatcher)
 
     override fun upload(
         imageFile: File
@@ -40,6 +42,6 @@ class FirebaseStorageDataRepository @Inject constructor(
                 trySend(path)
             }
         awaitClose { uploadTask.cancel() }
-    }.flowOn(Dispatchers.IO)
+    }.flowOn(dispatcher)
 
 }
