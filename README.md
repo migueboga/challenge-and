@@ -1,6 +1,6 @@
 # Movie App 🤖
 
-[![Use this template](https://img.shields.io/badge/from-kotlin--android--template-brightgreen?logo=dropbox)](https://github.com/cortinico/kotlin-android-template/generate) ![Pre Merge Checks](https://github.com/cortinico/kotlin-android-template/workflows/Pre%20Merge%20Checks/badge.svg)  ![License](https://img.shields.io/github/license/cortinico/kotlin-android-template.svg) ![Language](https://img.shields.io/github/languages/top/cortinico/kotlin-android-template?color=blue&logo=kotlin)
+ ![Language](https://img.shields.io/github/languages/top/cortinico/kotlin-android-template?color=blue&logo=kotlin)
 
 The movie app helps you to find good information about movies such as the most popular, the top related movies and why not the person most popular in the environment. Also, has te ability to see and save your location each 5 minutes sent you notifications when is saved. Its not all! Also you can save all your photos here.
 
@@ -67,23 +67,25 @@ Modules:
 4. Storage: Contains calls to get and set data from Room.
 
 All the modules contains a XXXDependencyProvider. It has the base objects to work well when its required for around the nodule such as database implementations, for example.
+All modules is based on clean architecture. It means that the primary package could be data, domain or presentation.
 
 
-### Flows
+## Flows
 
-1. Save image:
+1. Save image: 
 
-
-
+https://github.com/user-attachments/assets/2cc89fe6-c819-43db-a114-815350060b64
 
 2. Get movies:
 
-
-
+![Example](https://github.com/user-attachments/assets/69188540-55ae-4b02-a1f7-d656de7da3d8)
 
 
 ## To improve
 
+- Manage loaders its friendly for end users.
+- Improve the way how GenericDialogFragment is created with more customisable attributes.
+- 
 
 
 ## Work in progress
