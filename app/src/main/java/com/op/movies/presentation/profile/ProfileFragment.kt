@@ -2,13 +2,14 @@ package com.op.movies.presentation.profile
 
 import androidx.fragment.app.viewModels
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.op.movies.R
 import com.op.movies.databinding.FragmentProfileBinding
 import com.op.movies.presentation.base.BaseFragment
+import com.op.movies.presentation.dialog.GenericDialogFragment
 import com.op.movies.util.loadImage
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -17,6 +18,7 @@ class ProfileFragment : BaseFragment() {
 
     companion object {
         fun newInstance() = ProfileFragment()
+        private const val TAG_ERROR_DIALOG = "tagGenericError"
     }
 
     private var _binding: FragmentProfileBinding? = null
@@ -56,6 +58,10 @@ class ProfileFragment : BaseFragment() {
                 profileImage.loadImage(uiState.profilePath, requireContext())
                 reviewAdapter.update(uiState.reviews)
             }
+            if (uiState.error != null) {
+                showErrorDialog(uiState.error)
+                viewModel.clearError()
+            }
         }
     }
 
@@ -64,6 +70,16 @@ class ProfileFragment : BaseFragment() {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = reviewAdapter
         }
+    }
+
+    private fun showErrorDialog(message: Int) {
+        GenericDialogFragment(
+            R.string.err_generic_title,
+            message,
+            positiveButtonTitle = R.string.err_generic_positive_button_title,
+            onNegativeButtonPressed = {},
+            onPositiveButtonPressed = {}
+        ).show(parentFragmentManager, TAG_ERROR_DIALOG)
     }
 
 }
