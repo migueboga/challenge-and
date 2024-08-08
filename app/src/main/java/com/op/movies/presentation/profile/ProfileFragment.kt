@@ -8,11 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.op.movies.databinding.FragmentProfileBinding
+import com.op.movies.presentation.base.BaseFragment
 import com.op.movies.util.loadImage
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ProfileFragment : Fragment() {
+class ProfileFragment : BaseFragment() {
 
     companion object {
         fun newInstance() = ProfileFragment()
@@ -46,7 +47,7 @@ class ProfileFragment : Fragment() {
         _binding = null
     }
 
-    private fun collectUiState() {
+    override fun collectUiState() {
         viewModel.uiState.observe(viewLifecycleOwner) { uiState ->
             with(binding) {
                 profileNameValue.text = uiState.name

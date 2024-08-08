@@ -13,14 +13,16 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import com.op.movies.R
 import com.op.movies.databinding.FragmentGalleryBinding
+import com.op.movies.presentation.base.BaseFragment
+import com.op.movies.presentation.dialog.GenericDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class GalleryFragment : Fragment() {
+class GalleryFragment : BaseFragment() {
 
     private var _binding: FragmentGalleryBinding? = null
     private val viewModel: GalleryViewModel by viewModels()
@@ -28,8 +30,9 @@ class GalleryFragment : Fragment() {
     lateinit var galleryAdapter: GalleryAdapter
 
     companion object {
-        const val READ_EXTERNAL_STORAGE_PERMISSION_CODE = 99
-        const val OPEN_GALLERY_CODE = 88
+        private const val READ_EXTERNAL_STORAGE_PERMISSION_CODE = 99
+        private const val OPEN_GALLERY_CODE = 88
+        private const val TAG_ERROR_DIALOG = "tagGenericError"
     }
 
     override fun onCreateView(
@@ -97,10 +100,24 @@ class GalleryFragment : Fragment() {
         }
     }
 
-    private fun collectUiState() {
+    override fun collectUiState() {
         viewModel.uiState.observe(viewLifecycleOwner) { uiState ->
             galleryAdapter.update(uiState.imageUriList)
+            if (uiState.error != null) {
+                showErrorDialog(uiState.error)
+                viewModel.clearError()
+            }
         }
+    }
+
+    private fun showErrorDialog(message: Int) {
+        GenericDialogFragment(
+            R.string.err_generic_title,
+            message,
+            positiveButtonTitle = R.string.err_generic_positive_button_title,
+            onNegativeButtonPressed = {},
+            onPositiveButtonPressed = {}
+        ).show(parentFragmentManager, TAG_ERROR_DIALOG)
     }
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
