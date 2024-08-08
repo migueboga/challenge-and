@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.dagger.hilt)
     alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.google.services)
 }
 
 android {
@@ -66,9 +67,12 @@ dependencies {
     // Glide
     implementation(libs.bumptech.glide)
 
+    // Firebase
+    implementation(libs.firebase.storage.ktx)
+
     // Modules
     implementation(project(":moviedb"))
     implementation(project(":storage"))
-
+    implementation(project(":firebase"))
 
 }

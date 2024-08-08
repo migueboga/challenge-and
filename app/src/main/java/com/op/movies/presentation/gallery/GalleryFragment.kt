@@ -1,12 +1,21 @@
 package com.op.movies.presentation.gallery
 
+import android.Manifest
+import android.app.Activity.RESULT_OK
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import com.op.movies.databinding.FragmentGalleryBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -14,28 +23,136 @@ import dagger.hilt.android.AndroidEntryPoint
 class GalleryFragment : Fragment() {
 
     private var _binding: FragmentGalleryBinding? = null
-
     private val viewModel: GalleryViewModel by viewModels()
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
+    lateinit var galleryAdapter: GalleryAdapter
+
+    companion object {
+        const val READ_EXTERNAL_STORAGE_PERMISSION_CODE = 99
+        const val OPEN_GALLERY_CODE = 88
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         _binding = FragmentGalleryBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
-
+        galleryAdapter = GalleryAdapter()
         return root
+    }
+
+    override fun onStart() {
+        super.onStart()
+        attachGalleryAdapter()
+        viewModel.requestImages()
+        collectUiState()
+        binding.galleryFab.setOnClickListener {
+            if ( Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                requestPhotoPermissionForTiramisuOrLater()
+            } else {
+                requestPhotoPermissionLegacy()
+            }
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            READ_EXTERNAL_STORAGE_PERMISSION_CODE -> {
+                if (
+                    grantResults.isNotEmpty() &&
+                    (grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                ) {
+                    startGalleryActivityForResult()
+                } else {
+                    //TODO alert here. permission not granted
+                }
+            }
+        }
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            OPEN_GALLERY_CODE -> {
+                if (resultCode == RESULT_OK) {
+                    data?.data?.let { uri ->
+                        viewModel.uploadImage(uri, requireContext())
+                    }
+                }
+            }
+        }
+    }
+
+    private fun collectUiState() {
+        viewModel.uiState.observe(viewLifecycleOwner) { uiState ->
+            galleryAdapter.update(uiState.imageUriList)
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    private fun requestPhotoPermissionForTiramisuOrLater() {
+        if (
+            ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.READ_MEDIA_IMAGES
+            ) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(Manifest.permission.READ_MEDIA_IMAGES),
+                READ_EXTERNAL_STORAGE_PERMISSION_CODE
+            )
+        } else {
+            startGalleryActivityForResult()
+        }
+    }
+
+    private fun requestPhotoPermissionLegacy() {
+        if (
+            ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                READ_EXTERNAL_STORAGE_PERMISSION_CODE
+            )
+        } else {
+            startGalleryActivityForResult()
+        }
+    }
+
+    private fun getGalleryIntent() = Intent(
+        Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI
+    ).apply {
+        putExtra(Intent.EXTRA_MIME_TYPES, arrayOf("image/jpg"))
+    }
+
+    private fun startGalleryActivityForResult() {
+        startActivityForResult(
+            getGalleryIntent(),
+            OPEN_GALLERY_CODE
+        )
+    }
+
+    private fun attachGalleryAdapter() {
+        binding.galleryRecyclerView.apply {
+            layoutManager = GridLayoutManager(requireContext(), 3)
+            adapter = galleryAdapter
+        }
     }
 }
