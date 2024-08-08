@@ -37,7 +37,7 @@ class HomeViewModel @Inject constructor(
                     Log.e("debug", it.localizedMessage, it)
                     _uiState.postValue(
                         _uiState.value?.copy(
-                            isLoading = false, error = R.string.general_error
+                            isLoading = false, error = R.string.err_get_popular_movies
                         )
                     )
                 }
@@ -65,7 +65,7 @@ class HomeViewModel @Inject constructor(
                     Log.e("debug", it.localizedMessage, it)
                     _uiState.postValue(
                         _uiState.value?.copy(
-                            isLoading = false, error = R.string.general_error
+                            isLoading = false, error = R.string.err_get_top_rated
                         )
                     )
                 }

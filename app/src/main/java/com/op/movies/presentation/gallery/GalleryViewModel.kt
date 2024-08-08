@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.op.firebase.storage.domain.usecase.GetImageFileReferencesUseCase
 import com.op.firebase.storage.domain.usecase.UploadImageFileUseCase
+import com.op.movies.R
 import com.op.movies.presentation.base.BaseViewModel
 import com.op.movies.util.toFile
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -29,6 +30,9 @@ class GalleryViewModel @Inject constructor(
             getImageFileReferencesUseCase()
                 .catch {
                     Log.e("debug", it.localizedMessage, it)
+                    _uiState.postValue(
+                        _uiState.value?.copy(error = R.string.err_get_image)
+                    )
                 }
                 .collect { fileReferences ->
                     fileReferences.forEach { fileRef ->
@@ -49,12 +53,21 @@ class GalleryViewModel @Inject constructor(
                 uploadImageFileUseCase(file)
                     .catch {
                         Log.e("debug", it.localizedMessage, it)
+                        _uiState.postValue(
+                            _uiState.value?.copy(error = R.string.err_upload_image)
+                        )
                     }
                     .collect { _ ->
                         requestImages()
                     }
             }
         }
+    }
+
+    override fun clearError() {
+        _uiState.postValue(
+            _uiState.value?.copy(error = null)
+        )
     }
 
 }

@@ -7,11 +7,17 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.op.movies.R
 import com.op.movies.databinding.FragmentHomeBinding
+import com.op.movies.presentation.dialog.GenericDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
+
+    companion object {
+        private const val TAG_ERROR_DIALOG = "tagGenericError"
+    }
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
@@ -55,6 +61,10 @@ class HomeFragment : Fragment() {
             popularAdapter.update(uiState.popularMovieList)
             topRatedAdapter.update(uiState.topRatedMovieList)
             recommendationsAdapter.update(uiState.recommendationList)
+            if (uiState.error != null) {
+                showErrorDialog(uiState.error)
+                viewModel.clearError()
+            }
         }
     }
 
@@ -89,5 +99,15 @@ class HomeFragment : Fragment() {
             )
             adapter = recommendationsAdapter
         }
+    }
+
+    private fun showErrorDialog(message: Int) {
+        GenericDialogFragment(
+            R.string.err_generic_title,
+            message,
+            positiveButtonTitle = R.string.err_generic_positive_button_title,
+            onNegativeButtonPressed = {},
+            onPositiveButtonPressed = {}
+        ).show(parentFragmentManager, TAG_ERROR_DIALOG)
     }
 }
