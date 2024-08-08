@@ -89,6 +89,9 @@ https://github.com/user-attachments/assets/2cc89fe6-c819-43db-a114-815350060b64
 
 ![mapScreenshot_20240808_085542](https://github.com/user-attachments/assets/3f9820a9-b461-4b09-a5e6-1d9732c57329)
 
+5. Profile screen:
+
+![profileScreenshot_20240808_090051](https://github.com/user-attachments/assets/a97e83db-aeec-471f-84d8-9512eacc3d35)
 
 ## To improve
 
