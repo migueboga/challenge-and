@@ -18,7 +18,7 @@ import com.op.storage.data.database.entity.TopRatedMovie
         TopRatedMovie::class,
         RecommendMovie::class,
         Profile::class
-               ], version = 4
+               ], version = 6
 )
 @TypeConverters(Converter::class)
 abstract class MovieDatabase: RoomDatabase() {
