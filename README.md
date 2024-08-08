@@ -85,6 +85,10 @@ https://github.com/user-attachments/assets/2cc89fe6-c819-43db-a114-815350060b64
 ![fargmentdialog_Screenshot_20240807_222318](https://github.com/user-attachments/assets/923e5cf8-c632-43bf-bae9-112fce8f6d25)
 ![error_Screenshot_20240808_013105](https://github.com/user-attachments/assets/31bdb129-f8e2-4bc4-8fbe-edaef89d54c7)
 
+4. Map screen:
+
+![mapScreenshot_20240808_085542](https://github.com/user-attachments/assets/3f9820a9-b461-4b09-a5e6-1d9732c57329)
+
 
 ## To improve
 
