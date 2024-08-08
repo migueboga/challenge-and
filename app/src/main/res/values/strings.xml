@@ -22,4 +22,8 @@
     <string name="err_get_popular_movies">Error found when get popular movies, try later</string>
     <string name="err_get_top_rated">Error found when get top rated movies, try later</string>
     <string name="err_get_popular_person">Error found when get the most popular person, try later</string>
+    <string name="err_permission_title">Permission not granted</string>
+    <string name="err_require_location_permission">Its required granted location permission to see your locations in the map</string>
+    <string name="cancel">Cancel</string>
+    <string name="go_settings">Settings</string>
 </resources>

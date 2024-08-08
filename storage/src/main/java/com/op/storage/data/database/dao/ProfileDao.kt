@@ -15,6 +15,6 @@ interface ProfileDao {
     fun insert(profile: Profile)
 
     @Query("SELECT * FROM profile")
-    fun get(): Flow<Profile>
+    fun get(): Flow<Profile?>
 
 }

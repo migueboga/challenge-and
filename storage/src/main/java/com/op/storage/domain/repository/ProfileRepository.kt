@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface ProfileRepository {
 
-    fun getProfile(): Flow<Profile>
+    fun getProfile(): Flow<Profile?>
 
     suspend fun setProfile(profile: Profile)
 

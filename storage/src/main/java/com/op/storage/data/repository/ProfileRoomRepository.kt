@@ -10,7 +10,7 @@ class ProfileRoomRepository @Inject constructor(
     private val profileDao: ProfileDao
 ): ProfileRepository {
 
-    override fun getProfile(): Flow<Profile> = profileDao.get()
+    override fun getProfile(): Flow<Profile?> = profileDao.get()
 
     override suspend fun setProfile(profile: Profile) = profileDao.insert(profile)
 
