@@ -1,5 +1,5 @@
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.dagger.hilt)
     alias(libs.plugins.kotlin.kapt)
@@ -7,17 +7,14 @@ plugins {
 }
 
 android {
-    namespace = "com.op.movies"
+    namespace = "com.op.firebase"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.op.movies"
         minSdk = 21
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -36,9 +33,6 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    buildFeatures {
-        viewBinding = true
-    }
     kapt {
         correctErrorTypes = true
     }
@@ -49,13 +43,6 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
-    implementation(libs.androidx.constraintlayout)
-    implementation(libs.androidx.lifecycle.livedata.ktx)
-    implementation(libs.androidx.lifecycle.viewmodel.ktx)
-    implementation(libs.androidx.navigation.fragment.ktx)
-    implementation(libs.androidx.navigation.ui.ktx)
-    implementation(libs.androidx.legacy.support.v4)
-    implementation(libs.androidx.fragment.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -64,15 +51,9 @@ dependencies {
     implementation(libs.hilt)
     kapt(libs.hilt.compiler)
 
-    // Glide
-    implementation(libs.bumptech.glide)
-
     // Firebase
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.analytics)
     implementation(libs.firebase.storage.ktx)
-
-    // Modules
-    implementation(project(":moviedb"))
-    implementation(project(":storage"))
-    implementation(project(":firebase"))
 
 }

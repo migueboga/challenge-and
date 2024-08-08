@@ -12,4 +12,6 @@
     <string name="home_popular">Popular</string>
     <string name="home_top_rated">Top Rated</string>
     <string name="recommendations">Recommendations</string>
+    <string name="gallery">Gallery</string>
+    <string name="gallery_add_images">Add images</string>
 </resources>
