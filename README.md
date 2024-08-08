@@ -53,7 +53,7 @@ the movie app was made with a single activity `MainActivity.kt`; Inside, host 4 
 2. HomeFragment or Home screen: Show three horizontal recyclerviews. The first is a list of the most popular movies. The second one is a list of the top rated movies. The last one is a recommendation list based on the most popular movie. The data is loaded from:
 - Popular movies: `https://api.themoviedb.org/3/movie/popular`
 - Top rated movies: `https://api.themoviedb.org/3/movie/top_rated`
-- Recommendation movies: `https://api.themoviedb.org/3/movie/{movie_id}/recommendations`
+- Recommendation movies: `https://api.themoviedb.org/3/movie/{movie_id}/recommendations` (The recommendation movies is based on the most popular movie)
   Same as profile screen, the data is saved in local database using room. In the first load of the screen, gets the saved data from room, next, update the data from remote.
 3. MapFragment or Map screen: Show in the entire screen a map where can show the last position saved on firestore. This screen manage the location permission and is able to start the save remote location service.
 4. GalleryFragment or Gallery screen: Show a recyclerview in a grid mode with all the photos saved on firebase storage. Also, contains a Floating Action Button to upload new photos or images to the cloud. It has the capacity of request and manage external permission based on the Android API level.
@@ -80,14 +80,22 @@ https://github.com/user-attachments/assets/2cc89fe6-c819-43db-a114-815350060b64
 
 ![Example](https://github.com/user-attachments/assets/69188540-55ae-4b02-a1f7-d656de7da3d8)
 
+3. Dialogs (FragmentDialog):
+
+![fargmentdialog_Screenshot_20240807_222318](https://github.com/user-attachments/assets/923e5cf8-c632-43bf-bae9-112fce8f6d25)
+![error_Screenshot_20240808_013105](https://github.com/user-attachments/assets/31bdb129-f8e2-4bc4-8fbe-edaef89d54c7)
+
 
 ## To improve
 
 - Manage loaders its friendly for end users.
 - Improve the way how GenericDialogFragment is created with more customisable attributes.
-- 
+- Manage flows in a base strategy for each usecase received into viewModels. This avoid boilerplate.
 
 
 ## Work in progress
 
+- Save location into firestore
+- Call service every 5 minutes to show Notification and save location
+- Show location dots into map
 
